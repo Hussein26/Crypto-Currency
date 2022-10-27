@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
           SizedBox(height: 10,),
           GestureDetector(
               onTap: (){
-
+                Provider.of<AuthProvider>(context,listen: false).googleSignInMethod();
               },
               child: Container(
                 width: 200,

@@ -25,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
 
     await _auth.signInWithCredential(credential).then((user) {
       saveUser("", user);
-      Get.offAll(ControlView());
+      Get.offAll(BottomNavScreen());
     });
   }
 
@@ -65,5 +65,6 @@ class AuthProvider extends ChangeNotifier {
         .collection("users")
         .doc(user.user!.uid)
         .set(userModel.toJson());
+    print("//////////");
   }
 }
