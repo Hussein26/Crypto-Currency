@@ -43,6 +43,7 @@ class AuthProvider extends ChangeNotifier {
     try{
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("uid", _auth.currentUser!.uid);
+
       print("///////////////////////////////////////");
     }
     catch(e){
@@ -69,7 +70,13 @@ class AuthProvider extends ChangeNotifier {
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((user) {
           saveUser(name, user);
+
     });
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("name", name);
+    preferences.setString("email", _auth.currentUser!.email.toString());
+    preferences.setString("uid", _auth.currentUser!.uid);
+    notifyListeners();
     Get.offAll(BottomNavScreen());
   }
 

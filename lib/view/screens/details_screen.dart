@@ -33,8 +33,6 @@ class DetailScreen extends StatelessWidget {
 
       ];
       return Scaffold(
-
-          
           body: provider.detailsModel!.id == null
               ? Center(
             child: CircularProgressIndicator(),

@@ -64,8 +64,8 @@ class SearchScreen extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height*.27,),
                 Center(child:
                 SvgPicture.asset('assets/undraw_the_search_s0xf.svg',
-                  width: 200,
-                  height: 300,
+                    width: MediaQuery.of(context).size.width*.2,
+                  height: MediaQuery.of(context).size.height*.3,
                 ),
                 ),
                 Center(
@@ -143,7 +143,7 @@ class SearchScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 150),
+                                  SizedBox(width: MediaQuery.of(context).size.width*.42,),
                                   Expanded(
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,

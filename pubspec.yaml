@@ -49,6 +49,7 @@ dependencies:
   flutter_svg: ^0.23.0+1
   shared_preferences: ^2.0.8
   google_nav_bar: ^5.0.6
+  auto_reload: ^1.1.0
 
 dev_dependencies:
   flutter_test:

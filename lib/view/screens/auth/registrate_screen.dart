@@ -6,7 +6,9 @@ import 'package:grad_project_final/view_model/provider/auth_provider.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../../view_model/provider/control_provider.dart';
 import '../../../view_model/provider/password_provider.dart';
+import '../home_screen.dart';
 import 'login_screen.dart';
 
 
@@ -39,12 +41,12 @@ class RegisterScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 20,
+                  height: MediaQuery.of(context).size.height*.02,
                 ),
                 Padding(padding: EdgeInsets.only(left: 25,right:25),
                     child: Container(
                       width: double.infinity,
-                      height: 60,
+                      height: MediaQuery.of(context).size.height*.08,
                       decoration: BoxDecoration(
 
                           borderRadius: BorderRadius.circular(15),
@@ -59,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value !.isEmpty) {
-                            return 'please enter your Name';
+                            return 'Please enter your Name';
                           }
                           return null;
                         },
@@ -74,12 +76,12 @@ class RegisterScreen extends StatelessWidget {
                     )
                 ),
                 SizedBox(
-                  height: 20,
+                  height: MediaQuery.of(context).size.height*.01,
                 ),
                 Padding(padding: EdgeInsets.only(left: 25,right:25),
                     child: Container(
                       width: double.infinity,
-                      height: 60,
+                      height: MediaQuery.of(context).size.height*.08,
                       decoration: BoxDecoration(
 
                           borderRadius: BorderRadius.circular(15),
@@ -94,7 +96,7 @@ class RegisterScreen extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value !.isEmpty) {
-                            return 'please enter your Email';
+                            return 'Please enter your Email';
                           }
                           return null;
                         },
@@ -109,13 +111,13 @@ class RegisterScreen extends StatelessWidget {
                     )
                 ),
                 SizedBox(
-                  height: 20,
+                  height: MediaQuery.of(context).size.height*.01,
                 ),
                 Padding(padding: EdgeInsets.only(left: 25,right:25),
                     child: Container(
 
                       width: double.infinity,
-                      height: 60,
+                      height: MediaQuery.of(context).size.height*.1,
                       decoration: BoxDecoration(
 
                           borderRadius: BorderRadius.circular(15),
@@ -130,8 +132,8 @@ class RegisterScreen extends StatelessWidget {
                         obscureText: Provider.of<PasswordProvider>(context).visible,
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
-                          if (value !.isEmpty) {
-                            return 'please enter your Password';
+                          if (value !.isEmpty || value.length < 6) {
+                            return 'Please enter your Password\nIt has to be at least 6 characters';
                           }
                           return null;
                         },
@@ -151,20 +153,23 @@ class RegisterScreen extends StatelessWidget {
                     )
                 ),
                 SizedBox(
-                  height: 20,
+                  height: MediaQuery.of(context).size.height*.01,
                 ),
                 Padding(padding: EdgeInsets.only(left: 60,right: 60),
                   child: Container(
                     width: double.infinity,
-                    height: 55,
+                    height: MediaQuery.of(context).size.height*.06,
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(0, 151, 136, 1),
                         borderRadius: BorderRadius.circular(15)
                     ),
                     child: ElevatedButton(
                       onPressed: (){
-                        Provider.of<AuthProvider>(context,listen: false)
-                            .register(_name.text, _email.text, _password.text);
+                        if(_formKey.currentState!.validate()){
+                          Provider.of<AuthProvider>(context,listen: false)
+                              .register(_name.text, _email.text, _password.text);
+                          Provider.of<ControlProvider>(context,listen: false).currentScreen = HomeScreen();
+                        }
                       },
                       child: Text('Sign Up',style: TextStyle(fontSize: 20),),
                     ),

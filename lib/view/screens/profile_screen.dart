@@ -1,15 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grad_project_final/view/screens/home_screen.dart';
 import 'package:grad_project_final/view_model/provider/auth_provider.dart';
+import 'package:grad_project_final/view_model/provider/control_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/themes.dart';
 import '../../view_model/provider/theme_provider.dart';
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
 
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  String? username;
+  String? email;
+  getNameAndEmail() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      username = preferences.getString("name");
+      email =  preferences.getString("email");
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNameAndEmail();
+  }
+  @override
   Widget build(BuildContext context) {
+    var ProviderA = Provider.of<AuthProvider>(context);
     return Consumer<AuthProvider>(builder: (context,provider,child){
       return Scaffold(
 
@@ -27,10 +53,12 @@ class ProfileScreen extends StatelessWidget {
                     radius: 90,
                   )
               ),
-              SizedBox(height: 10,),
-              Text("Hussein",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-              Text("Hussein@gmail.com",style: TextStyle(fontSize: 15),),
-              SizedBox(height: 20,),
+              SizedBox(height: MediaQuery.of(context).size.height*.015,),
+              Text (
+                username.toString()
+              ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              Text(email.toString(),style: TextStyle(fontSize: 15),),
+              SizedBox(height: MediaQuery.of(context).size.height*.005,),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,7 +144,7 @@ class ProfileScreen extends StatelessWidget {
                                           child: Text('System',style: TextStyle(color: Colors.black,fontSize: 20),),
                                         ),
                                       ),),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: MediaQuery.of(context).size.height*.02,),
                                     Padding(padding: EdgeInsets.only(left: 10,right:10),
                                       child: Container(
                                         width: double.infinity,
@@ -137,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
                                           child: Text('Light',style: TextStyle(color: Colors.black,fontSize: 20),),
                                         ),
                                       ),),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: MediaQuery.of(context).size.height*.02,),
                                     Padding(padding: EdgeInsets.only(left: 10,right:10),
                                       child: Container(
                                         width: double.infinity,
@@ -253,13 +281,14 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       onPressed: (){
                       provider.signOut();
+                      Provider.of<ControlProvider>(context,listen: false).currentScreen = HomeScreen();
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Logout',style: TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(width: 5,),
+                          SizedBox(width: MediaQuery.of(context).size.width*.02,),
                           Icon(Icons.logout)
                         ],
                       )
