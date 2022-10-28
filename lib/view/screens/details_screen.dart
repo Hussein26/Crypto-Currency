@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -33,9 +34,7 @@ class DetailScreen extends StatelessWidget {
       ];
       return Scaffold(
 
-          appBar: AppBar(
-
-              title: Text(provider.detailsModel!.name)),
+          
           body: provider.detailsModel!.id == null
               ? Center(
             child: CircularProgressIndicator(),
@@ -45,16 +44,30 @@ class DetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * .25,
-                  child: Image.network(
-                    provider.detailsModel!.image,
-                    fit: BoxFit.cover,
-                  ),
+                SizedBox(height: 30,),
+                Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * .25,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30,right: 30),
+                        child: Image.network(
+                          provider.detailsModel!.image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    IconButton(onPressed: (){
+                      Get.back();
+                    },
+                        iconSize: 40,
+                        icon:Icon(Icons.chevron_left))
+                  ],
                 ),
                 SizedBox(
                   height: 15,
@@ -67,7 +80,6 @@ class DetailScreen extends StatelessWidget {
                       child: Text(
                         provider.detailsModel!.name,
                         style: TextStyle(
-
                             fontSize: 35,
                             fontWeight: FontWeight.bold),
                       ),

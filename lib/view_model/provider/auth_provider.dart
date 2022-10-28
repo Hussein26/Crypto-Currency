@@ -7,6 +7,7 @@ import 'package:grad_project_final/model/user_model.dart';
 import 'package:grad_project_final/view/screens/auth/login_screen.dart';
 import 'package:grad_project_final/view/widget/bottom_nav_bar_screen.dart';
 import 'package:grad_project_final/view/widget/control_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -39,11 +40,28 @@ class AuthProvider extends ChangeNotifier {
           e.toString(),
           snackPosition: SnackPosition.BOTTOM);
     }
+    try{
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString("uid", _auth.currentUser!.uid);
+      print("///////////////////////////////////////");
+    }
+    catch(e){
+      print(e.toString());
+    }
+
   }
 
   void signOut() async {
     await _auth.signOut();
     Get.offAll(LoginScreen());
+    try{
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.remove("uid");
+      print("/////////////////////////////////");
+    }
+    catch(e){
+      print(e.toString());
+    }
   }
 
   void register(String name, String email, String password) async {
@@ -65,6 +83,6 @@ class AuthProvider extends ChangeNotifier {
         .collection("users")
         .doc(user.user!.uid)
         .set(userModel.toJson());
-    print("//////////");
+
   }
 }
