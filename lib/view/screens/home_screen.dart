@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:grad_project_final/view_model/provider/profile_provider.dart';
 import 'package:provider/provider.dart';
 
 
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<HomeProvider>(builder: (context, provider, child) {
       var providerD = Provider.of<DetailsProvider>(context);
       return Scaffold(
@@ -69,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 15,
+                                width: 8,
                               ),
                               CircleAvatar(
                                 backgroundImage: NetworkImage(provider
@@ -102,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: MediaQuery.of(context).size.width*.1,),
+                              SizedBox(width: MediaQuery.of(context).size.width*.23,),
                               Expanded(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

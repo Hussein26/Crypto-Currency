@@ -14,6 +14,8 @@ class AuthProvider extends ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
+
+
   void googleSignInMethod() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleSignInAuthentication =
@@ -21,46 +23,50 @@ class AuthProvider extends ChangeNotifier {
 
     final credential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken
-    );
+        accessToken: googleSignInAuthentication.accessToken);
 
     await _auth.signInWithCredential(credential).then((user) {
-      saveUser("", user);
+      saveUser(_googleSignIn.currentUser!.displayName!, user);
       Get.offAll(BottomNavScreen());
     });
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("uid", _googleSignIn.currentUser!.id);
+    preferences.setString("email", _googleSignIn.currentUser!.email);
+    preferences.setString("name", _auth.currentUser!.displayName!);
+    preferences.setString("image", _auth.currentUser!.photoURL!);
+    notifyListeners();
   }
 
   void login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+      print("///////////////////");
       Get.offAll(BottomNavScreen());
     } catch (e) {
-      Get.snackbar(
-          "Login Error",
-          e.toString(),
+      Get.snackbar("Login Error", e.toString(),
           snackPosition: SnackPosition.BOTTOM);
     }
-    try{
+    try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("uid", _auth.currentUser!.uid);
-
-      print("///////////////////////////////////////");
-    }
-    catch(e){
+      preferences.setString("email", _auth.currentUser!.email.toString());
+      preferences.setString("name", "hoda");
+      notifyListeners();
+    } catch (e) {
       print(e.toString());
     }
-
   }
 
   void signOut() async {
     await _auth.signOut();
     Get.offAll(LoginScreen());
-    try{
+    try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.remove("uid");
-      print("/////////////////////////////////");
-    }
-    catch(e){
+      preferences.remove("name");
+      notifyListeners();
+    } catch (e) {
       print(e.toString());
     }
   }
@@ -68,8 +74,8 @@ class AuthProvider extends ChangeNotifier {
   void register(String name, String email, String password) async {
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((user) {
-          saveUser(name, user);
+        .then((user) async {
+      await saveUser(name, user);
 
     });
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -82,14 +88,15 @@ class AuthProvider extends ChangeNotifier {
 
   saveUser(String name, UserCredential user) async {
     UserModel userModel = UserModel(
-        name: name,
+        displayName: name,
         email: user.user!.email!,
-        image: "",
+        photoURL: "",
         userId: user.user!.uid);
     await _firestore
         .collection("users")
         .doc(user.user!.uid)
         .set(userModel.toJson());
-
   }
+
+
 }
