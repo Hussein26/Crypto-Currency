@@ -58,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Center(
               child: CircleAvatar(
             backgroundImage: NetworkImage(userProvider.userData.photoURL == ""
-                ? "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"
+                ? "https://pasrc.princeton.edu/sites/g/files/toruqf431/files/styles/freeform_750w/public/2021-03/blank-profile-picture-973460_1280.jpg?itok=QzRqRVu8"
                 : userProvider.userData.photoURL),
             radius: 90,
           )),
@@ -77,48 +77,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: MediaQuery.of(context).size.height * .005,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * .4,
+                width: MediaQuery.of(context).size.width * .48,
                 height: MediaQuery.of(context).size.height * .1,
-                child: Center(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Themes.isDarkMode(context)
-                            ? Color(0xff151f2c)
-                            : Colors.blueGrey,
-                      ),
-                      onPressed: () {
-                        Provider.of<PhotoProvider>(context, listen: false)
-                            .getImage(ImageSource.gallery);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text("From Gallery"),
-                          Icon(Icons.image_outlined)
-                        ],
-                      )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Center(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Themes.isDarkMode(context)
+                              ? Color(0xff151f2c)
+                              : Colors.blueGrey,
+                        ),
+                        onPressed: () {
+                          Provider.of<PhotoProvider>(context, listen: false)
+                              .getImage(ImageSource.gallery);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text("From Gallery",style: TextStyle(fontSize: 11),),
+                            Icon(Icons.image_outlined)
+                          ],
+                        )),
+                  ),
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * .4,
-                child: Center(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Themes.isDarkMode(context)
-                            ? Color(0xff151f2c)
-                            : Colors.blueGrey,
-                      ),
-                      onPressed: () {
-                        Provider.of<PhotoProvider>(context, listen: false)
-                            .getImage(ImageSource.camera);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [Text("Add Photo"), Icon(Icons.camera_alt)],
-                      )),
+                width: MediaQuery.of(context).size.width * .45,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 25,right: 7.5),
+                  child: Center(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Themes.isDarkMode(context)
+                              ? Color(0xff151f2c)
+                              : Colors.blueGrey,
+                        ),
+                        onPressed: () {
+                          Provider.of<PhotoProvider>(context, listen: false)
+                              .getImage(ImageSource.camera);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [Text("Add Photo",style: TextStyle(fontSize: 11),), Icon(Icons.camera_alt)],
+                        )),
+                  ),
                 ),
               ),
             ],

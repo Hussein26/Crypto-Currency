@@ -42,7 +42,7 @@ class DetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 30,),
+                SizedBox(height: MediaQuery.of(context).size.height * .0385,),
                 Stack(
                   alignment: Alignment.topLeft,
                   children: [

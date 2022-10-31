@@ -9,13 +9,12 @@ class BottomNavScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProfileProvider>(context,listen: false).GetUser();
+
     return Consumer<ControlProvider>(builder: (context,provider,child){
       return Scaffold(
           body: provider.currentScreen,
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,

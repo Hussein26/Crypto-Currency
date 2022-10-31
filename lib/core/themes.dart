@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Themes {
 
   static ThemeData lightTheme = ThemeData(
-    primarySwatch: Colors.green,
+    primarySwatch: Colors.blueGrey,
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(
 

@@ -25,8 +25,8 @@ class AuthProvider extends ChangeNotifier {
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken);
 
-    await _auth.signInWithCredential(credential).then((user) {
-      saveUser(_googleSignIn.currentUser!.displayName!, user);
+    await _auth.signInWithCredential(credential).then((user) async {
+      await user.user!.uid.isEmpty ? saveUser(_googleSignIn.currentUser!.displayName!, user):
       Get.offAll(BottomNavScreen());
     });
     SharedPreferences preferences = await SharedPreferences.getInstance();
