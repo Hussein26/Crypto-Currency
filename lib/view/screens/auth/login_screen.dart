@@ -23,24 +23,24 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var _email = TextEditingController();
-
+  var formkey = GlobalKey<FormState>();
   var _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var formkey = GlobalKey<FormState>();
+
     return Consumer<AuthProvider>(builder:(context,provider,child){
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height*.22,),
-              Text('Sign in',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
               Form(
                 key: formkey,
                 child: Column(
                   children: [
+                    SizedBox(height: MediaQuery.of(context).size.height*.22,),
+                    Text('Sign in',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
                     Padding(padding: EdgeInsets.only(left: 50,right: 50,top: 20),
                         child: EmailOrNameText(_email,
                             'Please enter your email',

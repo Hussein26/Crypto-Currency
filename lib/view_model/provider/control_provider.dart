@@ -15,20 +15,24 @@ class ControlProvider extends ChangeNotifier{
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   Widget currentScreen = HomeScreen();
-  void changeScreen(int index){
-    switch (index){
-      case 0:
-        currentScreen= HomeScreen();
-        break;
-      case 1:
-        currentScreen = SearchScreen();
-        break;
-      case 2:
-        currentScreen = ProfileScreen();
-        break;
-    }
-    notifyListeners();
-  }
+  // void changeScreen(int index){
+  //   switch (index){
+  //     case 0:
+  //       currentScreen= HomeScreen();
+  //       break;
+  //     case 1:
+  //       currentScreen = SearchScreen();
+  //       break;
+  //     case 2:
+  //       currentScreen = ProfileScreen();
+  //       break;
+  //   }
+  //   notifyListeners();
+  // }
 
-
+ChangeScreen(int index){
+  HomeScreen();
+  SearchScreen();
+  ProfileScreen();
+}
 }

@@ -27,9 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer<HomeProvider>(builder: (context, provider, child) {
       var providerD = Provider.of<DetailsProvider>(context);
       return Scaffold(
-
         appBar: AppBar(
-
           title: Text(
             "Crypto Currency",
             style: TextStyle(),
@@ -41,11 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               return GestureDetector(
                   onTap: () {
-
                     providerD.getAllDetails(provider.coinList[index].id);
-
-
-
                   },
                   child:Column(
                     children: [
@@ -107,38 +101,41 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: MediaQuery.of(context).size.width*.23,),
                               Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${provider.coinList[index].currentPrice
-                                          .toString()}$s",
-                                      style: TextStyle(fontSize: 12),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "${provider.coinList[index].currentPrice
+                                            .toString()}$s",
+                                        style: TextStyle(),
 
-                                    ),
-                                    Text(
-                                      "${provider.coinList[index].priceChange.toStringAsFixed(4)
-                                          }$s",
-                                      style: TextStyle(
-                                          color: provider.coinList[index]
-                                              .priceChange >=
-                                              0
-                                              ? Colors.green
-                                              : Colors.red,
-                                      fontSize: 12),
-                                    ),
-                                    Text("${provider
-                                        .coinList[index].priceChangePercentage
-                                        .toStringAsFixed(3)}%",
-                                      style: TextStyle(
-                                          color: provider.coinList[index]
-                                              .priceChange >=
-                                              0
-                                              ? Colors.green
-                                              : Colors.red,fontSize: 12),
-                                    )
-                                  ],
+                                      ),
+                                      Text(
+                                        "${provider.coinList[index].priceChange.toStringAsFixed(4)
+                                            }$s",
+                                        style: TextStyle(
+                                            color: provider.coinList[index]
+                                                .priceChange >=
+                                                0
+                                                ? Colors.green
+                                                : Colors.red,
+                                        ),
+                                      ),
+                                      Text("${provider
+                                          .coinList[index].priceChangePercentage
+                                          .toStringAsFixed(3)}%",
+                                        style: TextStyle(
+                                            color: provider.coinList[index]
+                                                .priceChange >=
+                                                0
+                                                ? Colors.green
+                                                : Colors.red),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],

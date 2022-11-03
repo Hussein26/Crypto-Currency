@@ -9,7 +9,7 @@ import '../../view_model/provider/details_provider.dart';
 import '../../view_model/provider/search_provider.dart';
 
 class SearchScreen extends StatelessWidget {
-  var _controller = TextEditingController();
+   TextEditingController _controller = TextEditingController();
   var _focus = FocusNode();
 
   @override
@@ -21,11 +21,9 @@ class SearchScreen extends StatelessWidget {
         _controller.clear();
         provider.clearSearch();
       }
-
       return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
-
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
@@ -47,9 +45,9 @@ class SearchScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(2)),
                   width: double.infinity,
                   child: TextFormField(
+                    keyboardType: TextInputType.text,
                     controller: _controller,
                     focusNode: _focus,
-                    autofocus: true,
                     onChanged: (value) {
                       provider.getAllSearchList(value);
                     },
@@ -65,7 +63,6 @@ class SearchScreen extends StatelessWidget {
                         },
                         icon: Icon(Icons.cancel),
                       ),
-
                     ),
                   ),
                 ),
@@ -156,14 +153,14 @@ class SearchScreen extends StatelessWidget {
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 10),
+                                                       ),
                                                   ),
                                                   Text(
                                                     provider.searchList[index]
                                                         .symbol,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 10),
+                                                        ),
                                                   ),
                                                 ],
                                               ),
@@ -175,25 +172,29 @@ class SearchScreen extends StatelessWidget {
                                                   .42,
                                             ),
                                             Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "rank",
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  Text(
-                                                    provider
-                                                        .searchList[index].rank
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color: Colors.green),
-                                                  ),
-                                                ],
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 15),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+
+                                                  children: [
+                                                    Text(
+                                                      "Rank",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                      fontSize: 15),
+                                                    ),
+                                                    Text(
+                                                      provider
+                                                          .searchList[index].rank
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 15
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             )
                                           ],

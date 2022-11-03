@@ -98,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text("From Gallery",style: TextStyle(fontSize: 11),),
+                            Text("From Gallery",style: TextStyle(),),
                             Icon(Icons.image_outlined)
                           ],
                         )),
@@ -122,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [Text("Add Photo",style: TextStyle(fontSize: 11),), Icon(Icons.camera_alt)],
+                          children: [Text("Add Photo",style: TextStyle(),), Icon(Icons.camera_alt)],
                         )),
                   ),
                 ),

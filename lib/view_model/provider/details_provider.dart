@@ -20,10 +20,6 @@ class DetailsProvider extends ChangeNotifier{
          detailsModel = value;
         Get.to(DetailScreen());
       });
-
-
-
-
     }
     on DioError catch(e){
       String error =  DioExceptions.fromDioError(e).toString();

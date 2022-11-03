@@ -31,17 +31,13 @@ class AuthProvider extends ChangeNotifier {
     });
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("uid", _googleSignIn.currentUser!.id);
-    preferences.setString("email", _googleSignIn.currentUser!.email);
-    preferences.setString("name", _auth.currentUser!.displayName!);
-    preferences.setString("image", _auth.currentUser!.photoURL!);
+
     notifyListeners();
   }
 
   void login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-
-      print("///////////////////");
       Get.offAll(BottomNavScreen());
     } catch (e) {
       Get.snackbar("Login Error", e.toString(),
@@ -50,8 +46,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("uid", _auth.currentUser!.uid);
-      preferences.setString("email", _auth.currentUser!.email.toString());
-      preferences.setString("name", "hoda");
+
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -64,7 +59,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.remove("uid");
-      preferences.remove("name");
+
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -79,8 +74,6 @@ class AuthProvider extends ChangeNotifier {
 
     });
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString("name", name);
-    preferences.setString("email", _auth.currentUser!.email.toString());
     preferences.setString("uid", _auth.currentUser!.uid);
     notifyListeners();
     Get.offAll(BottomNavScreen());

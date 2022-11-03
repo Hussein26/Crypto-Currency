@@ -105,7 +105,9 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Already have an account?',
-                      style: TextStyle(),
+                      style: TextStyle(
+                        fontSize: 18
+                      ),
                     ),
                     TextButton(
                       onPressed: () {
@@ -113,7 +115,9 @@ class RegisterScreen extends StatelessWidget {
                       },
                       child: Text(
                         'Login',
-                        style: TextStyle(),
+                        style: TextStyle(
+                          fontSize: 18
+                        ),
                       ),
                     ),
                   ],
