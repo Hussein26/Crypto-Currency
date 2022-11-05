@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grad_project_final/view/screens/home_screen.dart';
 import 'package:grad_project_final/view/screens/profile_screen.dart';
 import 'package:grad_project_final/view/screens/search_screen.dart';
-import 'package:grad_project_final/view_model/provider/control_provider.dart';
+
 import 'package:provider/provider.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
@@ -18,32 +18,39 @@ class BottomNavScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<BottomNavScreen> {
-  late PageController _pageController;
  int Sindex = 0;
-  @override
+ PageController _pageController =PageController(initialPage: 0);
 
-  void onButtonPressed(int index) {
-    setState(() {
-        Sindex = index;
-    });
-    _pageController.animateToPage(Sindex,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeOutQuad);
-  }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _pageController = PageController(initialPage: Sindex);
-  }
   @override
   Widget build(BuildContext context) {
       return Scaffold(
+        body: PageView(
+          onPageChanged: (newIndex){
+            setState(() {
+              Sindex = newIndex;
+            });
+          },
+          scrollDirection: Axis.horizontal,
+          controller: _pageController,
+          children: [
+            HomeScreen(),
+            SearchScreen(),
+            ProfileScreen(),
+          ],
+        ),
         bottomNavigationBar: SlidingClippedNavBar(
-          backgroundColor: Themes.isDarkMode(context) ? Colors.black : Colors.white,
-          onButtonPressed:onButtonPressed,
+          selectedIndex:  Sindex,
+          backgroundColor: Themes.isDarkMode(context) ? Colors.black : Color.fromRGBO(235,239,242,1),
+          onButtonPressed:(newIndex){
+            setState(() {
+              Sindex = newIndex;
+              _pageController.animateToPage(Sindex,
+                  duration: Duration(milliseconds: 400), curve: Curves.easeOutQuad);
+            });
+          },
+
           iconSize: 30,
           activeColor:  Colors.green,
-          selectedIndex:  Sindex,
           barItems: <BarItem>[
             BarItem(
               icon: Icons.home,
@@ -59,15 +66,7 @@ class _MyHomePageState extends State<BottomNavScreen> {
             ),
           ],
         ),
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: [
-            HomeScreen(),
-            SearchScreen(),
-            ProfileScreen(),
-          ],
-        ),
+
 
     );
   }

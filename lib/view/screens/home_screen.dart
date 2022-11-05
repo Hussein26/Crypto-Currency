@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    Provider.of<ProfileProvider>(context,listen: false).GetUser();
     return Consumer<HomeProvider>(builder: (context, provider, child) {
       var providerD = Provider.of<DetailsProvider>(context);
       return Scaffold(

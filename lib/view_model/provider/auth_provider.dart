@@ -7,6 +7,7 @@ import 'package:grad_project_final/model/user_model.dart';
 import 'package:grad_project_final/view/screens/auth/login_screen.dart';
 import 'package:grad_project_final/view/widget/bottom_nav_bar_screen.dart';
 import 'package:grad_project_final/view/widget/control_view.dart';
+import 'package:grad_project_final/view_model/provider/profile_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -55,6 +56,7 @@ class AuthProvider extends ChangeNotifier {
 
   void signOut() async {
     await _auth.signOut();
+    ProfileProvider().RemoveUser();
     Get.offAll(LoginScreen());
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();

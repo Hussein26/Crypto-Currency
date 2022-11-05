@@ -35,7 +35,9 @@ class DetailScreen extends StatelessWidget {
       return Scaffold(
           body: provider.detailsModel!.id == null
               ? Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.black,
+            ),
           )
               : SingleChildScrollView(
             child: Column(
@@ -98,8 +100,7 @@ class DetailScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius:
                             BorderRadius.all(Radius.circular(10)),
-                            color: Themes.isDarkMode(context) ? Color(
-                                0xff151f2c) : Colors.blueGrey,
+                            color: Color.fromRGBO(66, 66, 66, 1),
                           ),
                           child: Center(
                               child: Text(
@@ -108,8 +109,7 @@ class DetailScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
-                                  color: Themes.isDarkMode(context) ? Colors
-                                      .white : Colors.black,),
+                                  color:Colors.white  ,),
                               )),
                         )
                       ],
@@ -165,18 +165,17 @@ class DetailScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14.0),
 
+
                     ),
                     child: Card(
-
+                      color: Themes.isDarkMode(context) ? Color(0xff151f2c) : Colors.blueGrey,
                       child: SfCartesianChart(
                         primaryXAxis: CategoryAxis(
                           isVisible: true,
                           majorGridLines: MajorGridLines(width: 1),
-                          axisLine: AxisLine(width: 3, color: Colors.white),
+                          axisLine: AxisLine(width: 3),
                           labelStyle: TextStyle(
-                              color: Themes.isDarkMode(context)
-                                  ? Colors.white
-                                  : Colors.blueGrey, fontSize: 20),
+                              color: Themes.isDarkMode(context) ?  Colors.white :Color(0xff151f2c) , fontSize: 20),
                           majorTickLines: MajorTickLines(size: 0),
                         ),
                         primaryYAxis: CategoryAxis(isVisible: false),

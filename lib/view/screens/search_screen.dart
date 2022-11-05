@@ -8,19 +8,25 @@ import '../../core/themes.dart';
 import '../../view_model/provider/details_provider.dart';
 import '../../view_model/provider/search_provider.dart';
 
-class SearchScreen extends StatelessWidget {
-   TextEditingController _controller = TextEditingController();
+class SearchScreen extends StatefulWidget {
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  var _search = TextEditingController();
+
   var _focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<SearchProvider>(builder: (context, provider, child) {
       var providerD = Provider.of<DetailsProvider>(context);
       var providerS = Provider.of<SearchProvider>(context);
-      cleanText() {
-        _controller.clear();
-        provider.clearSearch();
-      }
+
+
+
       return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -46,7 +52,7 @@ class SearchScreen extends StatelessWidget {
                   width: double.infinity,
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: _controller,
+                    controller: _search,
                     focusNode: _focus,
                     onChanged: (value) {
                       provider.getAllSearchList(value);
@@ -58,7 +64,8 @@ class SearchScreen extends StatelessWidget {
                       hintStyle: TextStyle(fontSize: 20),
                       suffixIcon: IconButton(
                         onPressed: () {
-                          cleanText();
+                          _search.clear();
+                          provider.clearSearch();
                           _focus.requestFocus();
                         },
                         icon: Icon(Icons.cancel),
@@ -67,7 +74,7 @@ class SearchScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              _controller.text.isEmpty
+              _search.text.isEmpty
                   ? SingleChildScrollView(
                       child: Column(
                         children: [

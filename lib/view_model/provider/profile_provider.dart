@@ -7,7 +7,7 @@ import '../../model/user_model.dart';
 class ProfileProvider extends ChangeNotifier{
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  UserModel userData = UserModel(displayName: "", email: "",photoURL: "", userId: "");
+  UserModel? userData = UserModel(displayName: "", email: "",photoURL: "", userId: "");
   GetUser() async {
     await _firestore
         .collection("users")
@@ -17,5 +17,8 @@ class ProfileProvider extends ChangeNotifier{
       userData = UserModel.fromJson(value.data()!);
       notifyListeners();
     });
+  }
+  RemoveUser(){
+   userData = null;
   }
 }

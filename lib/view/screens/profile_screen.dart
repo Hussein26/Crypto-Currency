@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grad_project_final/view/screens/home_screen.dart';
 import 'package:grad_project_final/view_model/provider/auth_provider.dart';
-import 'package:grad_project_final/view_model/provider/control_provider.dart';
+
 import 'package:grad_project_final/view_model/provider/photo_provider.dart';
 import 'package:grad_project_final/view_model/provider/profile_provider.dart';
 
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProfileProvider>(context,listen: false).GetUser();
+
     var userProvider = Provider.of<ProfileProvider>(context);
     return Consumer<AuthProvider>(builder: (context, provider, child) {
       return Scaffold(
@@ -57,33 +57,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Center(
               child: CircleAvatar(
-            backgroundImage: NetworkImage(userProvider.userData.photoURL == ""
+            backgroundImage: NetworkImage(userProvider.userData!.photoURL == ""
                 ? "https://pasrc.princeton.edu/sites/g/files/toruqf431/files/styles/freeform_750w/public/2021-03/blank-profile-picture-973460_1280.jpg?itok=QzRqRVu8"
-                : userProvider.userData.photoURL),
+                : userProvider.userData!.photoURL),
             radius: 90,
           )),
           SizedBox(
             height: MediaQuery.of(context).size.height * .015,
           ),
           Text(
-            userProvider.userData.displayName ,
+            userProvider.userData!.displayName ,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
-           userProvider.userData.email,
+           userProvider.userData!.email,
             style: TextStyle(fontSize: 15),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * .005,
           ),
-          Row(
-
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * .48,
-                height: MediaQuery.of(context).size.height * .1,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 30),
+          Padding(
+            padding: const EdgeInsets.only(left: 24,right: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * .419,
+                  height: MediaQuery.of(context).size.height * .1,
                   child: Center(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -104,11 +104,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )),
                   ),
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * .45,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 25,right: 7.5),
+                Container(
+                  width: MediaQuery.of(context).size.width * .419,
+                  height: MediaQuery.of(context).size.height * .1,
                   child: Center(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -126,13 +124,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: Container(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width * .9,
               height: MediaQuery.of(context).size.height * .05,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
               child: ElevatedButton(
@@ -145,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                              backgroundColor: Colors.grey,
+                              backgroundColor:Themes.isDarkMode(context) ? Color(0xff151f2c) : Colors.blueGrey,
                               title: Text(
                                 "Change Theme",
                                 style: TextStyle(color: Colors.white),
@@ -271,7 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: Container(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width * .9,
               height: MediaQuery.of(context).size.height * .05,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
               child: ElevatedButton(
@@ -284,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                                backgroundColor: Colors.grey,
+                                backgroundColor: Themes.isDarkMode(context) ? Color(0xff151f2c) : Colors.blueGrey,
                                 title: Text(
                                   "Change Language",
                                   style: TextStyle(color: Colors.white),
@@ -356,7 +354,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30),
             child: Container(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width * .9,
               height: MediaQuery.of(context).size.height * .05,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
               child: ElevatedButton(
@@ -367,8 +365,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   onPressed: () {
                     provider.signOut();
-                    Provider.of<ControlProvider>(context, listen: false)
-                        .currentScreen = HomeScreen();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

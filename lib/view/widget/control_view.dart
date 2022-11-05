@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+
 import 'package:grad_project_final/view/screens/auth/login_screen.dart';
 import 'package:grad_project_final/view/widget/bottom_nav_bar_screen.dart';
 
@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-import '../../view_model/provider/control_provider.dart';
+
 class ControlView extends StatefulWidget {
   const ControlView({Key? key}) : super(key: key);
 

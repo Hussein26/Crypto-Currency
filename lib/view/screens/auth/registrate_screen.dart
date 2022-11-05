@@ -1,4 +1,4 @@
-import 'package:email_validator/email_validator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -6,7 +6,7 @@ import 'package:grad_project_final/view_model/provider/auth_provider.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../view_model/provider/control_provider.dart';
+
 import '../../../view_model/provider/password_provider.dart';
 import '../../shared/constant.dart';
 import '../home_screen.dart';
@@ -84,13 +84,15 @@ class RegisterScreen extends StatelessWidget {
                         color: Color.fromRGBO(0, 151, 136, 1),
                         borderRadius: BorderRadius.circular(15)),
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.green
+                      ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           Provider.of<AuthProvider>(context, listen: false)
                               .register(
                                   _name.text, _email.text, _password.text);
-                          Provider.of<ControlProvider>(context, listen: false)
-                              .currentScreen = HomeScreen();
+
                         }
                       },
                       child: Text(
@@ -110,6 +112,9 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                     TextButton(
+                      style: TextButton.styleFrom(
+                          primary: Colors.green
+                      ),
                       onPressed: () {
                         Get.offAll(LoginScreen());
                       },

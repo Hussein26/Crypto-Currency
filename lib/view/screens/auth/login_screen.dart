@@ -11,7 +11,6 @@ import 'package:grad_project_final/view_model/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../view_model/provider/control_provider.dart';
 import '../../../view_model/provider/password_provider.dart';
 import '../home_screen.dart';
 
@@ -64,14 +63,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height*.06,
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(0, 151, 136, 1),
+                      color: Colors.green,
                       borderRadius: BorderRadius.circular(15)
                   ),
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.green
+                    ),
                     onPressed: () async {
                       if(formkey.currentState!.validate()){
                         Provider.of<AuthProvider>(context,listen: false).login(_email.text, _password.text);
-                        Provider.of<ControlProvider>(context,listen: false).currentScreen = HomeScreen();
+
                       }
                       setData();
                     },
@@ -117,7 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("If you have an account?",style: TextStyle(fontSize: 18),),
-                  TextButton(onPressed: (){
+                  TextButton(
+                      style: TextButton.styleFrom(
+                          primary: Colors.green
+                      ),
+                      onPressed: (){
                     Get.offAll(RegisterScreen());
                   }, child: Text('Sign up',style: TextStyle(fontSize: 18)))
                 ],
